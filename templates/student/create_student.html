@@ -3,7 +3,7 @@
     <title>Create</title>
 {% endblock title %}
 {% block content %}
-    <form method="post" class="post-form" enctype="multipart/form-data" action="{% url 'student-create' %}">
+    <form method="post" class="post-form" enctype="multipart/form-data" action="{% url 'student:student-create' %}">
         {% csrf_token %}
         <div class="container">
             <br>

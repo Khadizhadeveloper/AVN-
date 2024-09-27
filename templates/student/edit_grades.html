@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Редактировать оценки{% endblock %}
+
+{% block content %}
+<h2>Редактирование оценок для {{ student.first_name }} {{ student.last_name }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Предмет</th>
+                <th>Оценка</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for form in formset %}
+            <tr>
+                <td>{{ form.subject }}</td>
+                <td>{{ form.grade }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-success">Сохранить изменения</button>
+</form>
+{% endblock %}

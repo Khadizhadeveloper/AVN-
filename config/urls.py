@@ -22,7 +22,8 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('students/', include('student.urls'))
+    path('web/', include('student.urls', namespace='students')),
+    path('api/v1/', include('api.urls', namespace='api')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

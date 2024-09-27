@@ -1,64 +1,63 @@
 {% extends 'base.html' %}
 {% block title %}
-    <title>Students</title>
+    Students
 {% endblock title %}
 {% block content %}
     <div class="container">
         <div class="row">
-            {% if message %}
+            {% if messages %}
                 <ul class="messages">
                     {% for message in messages %}
                         <li {% if message.tags %} class="{{ message.tags }} {% endif %}">{{ message }}</li>
                     {% endfor %}
                 </ul>
             {% endif %}
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Age</th>
-                    <th>Email</th>
-                    <th>Student Number</th>
-                    <th>Gender</th>
-                    <th>Education</th>
-                    <th>Image</th>
-                    <th colspan="2">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for student in students %}
-                    <tr>
-                        <td>{{ student.first_name }}</td>
-                        <td>{{ student.last_name }}</td>
-                        <td>{{ student.age }}</td>
-                        <td>{{ student.email }}</td>
-                        <td>{{ student.student_number }}</td>
-                        <td>{{ student.gender }}</td>
-                        <td>{{ student.education }}</td>
-                        <td>
-                            {% if student.image %}
-                                <img src="/media/students/{{ student.image }}" class="img img-responsive" width="100px">
-                            {% endif %}
-                        </td>
-                        <td><a class="btn btn-success btn-sm" href="{% url 'student-update' student.id %}">Edit</a></td>
-                        <td><a class="btn btn-danger btn-sm"
-                           onclick="return confirm('Do you really to delete this student!')"
-                           href="{% url 'student-delete' student.id %}">Delete</a></td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <td>Empty!</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
 
-            </table>
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Student Number</th>
+                            <th>Gender</th>
+                            <th>Education</th>
+                            <th colspan="3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students %}
+                            <tr>
+                                <td>{{ student.first_name }}</td>
+                                <td>{{ student.last_name }}</td>
+                                <td>{{ student.email }}</td>
+                                <td>{{ student.student_number }}</td>
+                                <td>{{ student.gender }}</td>
+                                <td>{{ student.education }}</td>
+
+                                <td>
+                                    <a href="{% url 'student:student-detail' student.id %}" class="btn btn-info btn-sm">Details</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-success btn-sm" href="{% url 'student:student-update' student.id %}">Edit</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger btn-sm" onclick="return confirm('Do you really want to delete this student?')" href="{% url 'student:student-delete' student.id %}">Delete</a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="10" class="text-center">No students found!</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <center>
+                <a href="{% url 'student:student-create' %}" class="btn btn-primary btn-lg" style="border-radius: 20px;">Add New Student</a>
+            </center>
         </div>
-
     </div>
-    <br><br>
-    <center>
-        <a href="{% url 'student-create' %}" class="btn btn-primary">Add new Student</a>
-    </center>
 {% endblock content %}

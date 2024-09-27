@@ -1,6 +1,6 @@
 from django import forms
 
-from student.models import Student
+from student.models import Student, Grade, Subject
 
 
 class StudentForm(forms.ModelForm):
@@ -21,3 +21,13 @@ class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
         fields = '__all__'
+
+class GradeForm(forms.ModelForm):
+    class Meta:
+        model=Grade
+        fields=['grade']
+        widgets={
+            'grade': forms.NumberInput(attrs={'placeholder': 'Введите оценку', 'min': 0, 'max': 100}),
+        }
+
+
