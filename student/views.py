@@ -79,7 +79,7 @@ class EditGradesView(View):
         student = get_object_or_404(Student, id=student_id)
         grades = Grade.objects.filter(student=student)
         formset = self.GradeFormset(queryset=grades)
-        return render(request, 'student/detail_student.html', {'formset': formset, 'student': student})
+        return render(request, 'student/edit_grades.html', {'formset': formset, 'student': student})
 
     def post(self, request, student_id):
         student = get_object_or_404(Student, id=student_id)
@@ -87,8 +87,10 @@ class EditGradesView(View):
         formset = self.GradeFormset(request.POST, queryset=grades)
         if formset.is_valid():
             formset.save()
-            return redirect('student:student-detail', student_id=student.id)
-        return render(request, 'student/detail_student.html', {'formset': formset, 'student': student})
+            return redirect('student:student-detail', pk=student.id)
+        else:
+            print(formset.errors)
+        return render(request, 'student/edit_grades.html', {'formset': formset, 'student': student})
 
 
 

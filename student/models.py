@@ -52,7 +52,7 @@ class Student(models.Model):
 class Grade(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='grades')
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    grade = models.DecimalField(default=2.00,max_digits=3, decimal_places=2)
+    grade = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
 
     def __str__(self):
         return f'{self.student.first_name, self.student.last_name} - {self.subject.name}: {self.grade}'
