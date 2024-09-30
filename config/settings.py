@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'student.apps.StudentConfig',
     'rest_framework',
     'api.apps.ApiConfig',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
